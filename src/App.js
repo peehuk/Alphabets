@@ -1,25 +1,63 @@
-import logo from './logo.svg';
-import './App.css';
+import * as React from "react";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+export default class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      justClicked: null,
+      value: [],
+      letters: [
+        {
+          name: "A",
+          value: "Apple"
+        },
+        {
+          name: "B",
+          value: "Ball"
+        },
+        {
+          name: "C",
+          value: "Cat"
+        },
+        {
+          name: "D",
+          value: "Dog"
+        },
+        {
+          name: "E",
+          value: "Eagle"
+        },
+        {
+          name: "F",
+          value: "Fish"
+        }
+      ]
+    };
+  }
+  handleClick(e) {
+    console.log("TEST", e.target.dataset);
+    this.setState({ justClicked: e.target.dataset.letter });
+  }
+
+  render() {
+    console.log("TEST", this.state.letters, this.state.letters.length);
+    return (
+      <div>
+        Just clicked: {this.state.justClicked}
+        <ul>
+          {this.state.letters
+            ? this.state.letters.map((letter) => (
+                <li
+                  key={letter.name}
+                  data-letter={letter.name}
+                  onClick={(e) => this.handleClick(e)}
+                >
+                  {letter.value}
+                </li>
+              ))
+            : null}
+        </ul>
+      </div>
+    );
+  }
 }
-
-export default App;
